@@ -6,18 +6,11 @@ public class Range implements RangeInterface{
 
     private long startValue;
     private long endValue;
-    private List<Long> valueList = new ArrayList<Long>();
+    private List<Long> valueList = new ArrayList<>();
 
-    public Range (long start, long finish){
+    Range (long start, long finish){
         this.startValue = start;
         this.endValue = finish;
-    }
-
-    public static void main(String[] args) {
-        Range range = new Range(4,8);
-         Iterator<Long> test = range.asIterator();
-        System.out.println(test.next());
-        System.out.println(test.next());
     }
 
     public boolean isBefore(Range otherRange) {
@@ -29,10 +22,8 @@ public class Range implements RangeInterface{
     }
 
     public boolean isConcurrent(Range otherRange) {
-        return this.getLowerBound() >= otherRange.getLowerBound()
-                && this.getLowerBound() <= otherRange.getUpperBound()
-                && this.getUpperBound() >= otherRange.getLowerBound()
-                && this.getUpperBound() <= otherRange.getUpperBound();
+        return this.getUpperBound() >= otherRange.getLowerBound()
+                && this.getLowerBound() <= otherRange.getUpperBound();
     }
 
     public long getLowerBound() {
@@ -48,9 +39,9 @@ public class Range implements RangeInterface{
     }
 
     public List<Long> asList() {
-        for (long i = this.startValue; i <= this.endValue ; i++) {
-            this.valueList.add(i);
-        }
+        if (valueList.isEmpty())
+            for (long i = this.startValue; i <= this.endValue; i++)
+                this.valueList.add(i);
         return this.valueList;
     }
 
